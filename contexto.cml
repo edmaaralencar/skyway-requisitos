@@ -1,0 +1,186 @@
+Domain SistemaVendasPassagensAereas {
+	Subdomain VendaPassagens
+	Subdomain GestaoClientesFidelidade
+	Subdomain CheckInBagagem
+	Subdomain OperacoesVoo
+}
+
+ContextMap {
+	contains VendaPassagens
+	contains GestaoClientesFidelidade
+	contains CheckInBagagem
+	contains OperacoesVoo
+
+	VendaPassagens Shared-Kernel GestaoClientesFidelidade
+	VendaPassagens Shared-Kernel CheckInBagagem
+	OperacoesVoo Shared-Kernel VendaPassagens
+}
+
+BoundedContext VendaPassagens implements VendaPassagens{
+	Aggregate Passagem {
+		Entity Passagem {
+			aggregateRoot
+
+			-PassagemId id
+			-VooId voo
+			-ClienteId cliente
+			-AssentoId assento
+			Date dataCompra
+			Float preco
+			String classe // Executiva, Econômica
+			String status // Ativa, Cancelada, Reembolsada
+		}
+
+		ValueObject PassagemId {
+			int id
+		}
+	}
+
+	Aggregate Voo {
+		Entity Voo {
+			aggregateRoot
+
+			-VooId id
+			String origem
+			String destino
+			-List<Escala> escalas
+			Date horarioPartida
+			Date horarioChegada
+			String status // Confirmado, Atrasado, Cancelado
+		}
+
+		ValueObject VooId {
+			int id
+		}
+
+		ValueObject Escala {
+			String aeroporto
+			Date horarioPartida
+			Date horarioChegada
+		}
+	}
+
+	Aggregate Assento {
+		Entity Assento {
+			aggregateRoot
+
+			-AssentoId id
+			String numero
+			boolean disponivel
+		}
+
+		ValueObject AssentoId {
+			String numero
+		}
+	}
+
+	Aggregate CupomDesconto {
+		Entity Cupom {
+			aggregateRoot
+
+			-CupomId id
+			Float valorDesconto
+			Date validade
+			boolean usado
+		}
+
+		ValueObject CupomId {
+			String codigo
+		}
+	}
+}
+
+BoundedContext GestaoClientesFidelidade implements GestaoClientesFidelidade {
+	Aggregate Cliente {
+		Entity Cliente {
+			aggregateRoot
+
+			-ClienteId id
+			String nome
+			String cpf
+			String client_email
+			-Fidelidade fidelidade
+		}
+
+		ValueObject ClienteId {
+			int id
+		}
+
+		ValueObject Fidelidade {
+			String nomePrograma
+			String nivel // Bronze, Prata, Ouro
+			Float pontosAcumulados
+		}
+	}
+
+	Aggregate Reembolso {
+		Entity Reembolso {
+			aggregateRoot
+
+			-ReembolsoId id
+			-PassagemId passagem
+			Float valor
+			String metodo // Crédito na conta
+			Date dataRecebimento
+		}
+
+		ValueObject ReembolsoId {
+			int id
+		}
+	}
+
+	Aggregate Credito {
+		Entity Credito {
+			aggregateRoot
+
+			-CreditoId id
+			-ClienteId cliente
+			Float saldo
+		}
+
+		ValueObject CreditoId {
+			int id
+		}
+	}
+}
+
+BoundedContext CheckInBagagem implements CheckInBagagem{
+	Aggregate CheckIn {
+		Entity CheckIn {
+			aggregateRoot
+
+			-CheckInId id
+			-PassagemId passagem
+			-AssentoId assento nullable
+			Date dataCheckIn
+			-Bagagem bagagem nullable
+		}
+
+		ValueObject CheckInId {
+			int id
+		}
+
+		ValueObject Bagagem {
+			Float volume
+			int quantidadePermitida
+			Float taxaExcesso nullable
+		}
+	}
+}
+
+BoundedContext OperacoesVoo implements OperacoesVoo {
+	Aggregate MudancaVoo {
+		Entity MudancaVoo {
+			aggregateRoot
+
+			-MudancaVooId id
+			-PassagemId passagemOriginal
+			-VooId novoVoo
+			Float taxaMudanca
+		}
+
+		ValueObject MudancaVooId {
+			int id
+		}
+	}
+}
