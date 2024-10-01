@@ -9,6 +9,7 @@
         <module name="core" />
         <module name="bdd" />
         <module name="memory" />
+        <module name="customers" />
       </profile>
     </annotationProcessing>
   </component>

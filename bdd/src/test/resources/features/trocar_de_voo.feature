@@ -1,14 +1,18 @@
-Feature: Gestão de Mudanças de Voo
+Feature: Gestão de Mudanças de Voo com Taxas
 
-  Scenario: Alteração de voo com diferença de tarifa
+  Scenario: Alteração de voo com diferença de tarifa e taxas
     Given que o passageiro deseja alterar o voo
-    When o passageiro escolhe um voo "com assentos disponíveis"
-    Then o sistema calcula a diferença de tarifa
-    And o passageiro seleciona um novo assento no voo alterado
-    And o passageiro confirma o pagamento adicional antes da alteração ser confirmada
+    When o passageiro escolhe um voo
+    And o voo é de classe "Executiva"
+    And a alteração é feita com "menos de 24 horas"
+    Then o sistema calcula as taxas
+    And o sistema confirma a alteração "com as taxas"
 
-  Scenario: Voo alternativo sem diferença de tarifa
+  Scenario: Voo alternativo sem diferença de tarifa e sem taxa
     Given que o passageiro deseja alterar o voo
-    When o passageiro escolhe um voo "alternativo sem diferença de tarifa"
-    Then o passageiro seleciona um novo assento no voo alterado
-    And a alteração é confirmada sem custo adicional
+    When o passageiro escolhe um voo
+    And o voo é de classe "Economica"
+    And a alteração é feita com "mais de 72 horas"
+    Then o sistema calcula as taxas
+    And o sistema confirma a alteração "sem custo adicional"
+

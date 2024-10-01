@@ -1,4 +1,4 @@
-package com.cesar.trabalho.cliente;
+package com.cesar.trabalho.credito;
 
 import org.jmolecules.ddd.annotation.ValueObject;
 

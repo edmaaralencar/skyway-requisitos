@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>core</artifactId>
+    <artifactId>customers</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -18,11 +18,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.cesar.trabalho</groupId>
-            <artifactId>customers</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/org.jmolecules/jmolecules-ddd -->
         <dependency>
             <groupId>org.jmolecules</groupId>

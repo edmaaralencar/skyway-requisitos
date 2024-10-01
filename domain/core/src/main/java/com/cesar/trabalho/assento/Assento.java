@@ -17,6 +17,7 @@ public class Assento {
         this.numero = numero;
         this.estaDisponivel = estaDisponivel;
         this.voo = voo;
+        this.id = new AssentoId();
     }
 
     public AssentoId getId() {

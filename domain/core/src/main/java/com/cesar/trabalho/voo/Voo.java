@@ -26,6 +26,7 @@ public class Voo {
         this.horarioPartida = horarioPartida;
         this.horarioChegada = horarioChegada;
         this.status = status;
+        this.id = new VooId();
     }
 
     public VooId getId() {

@@ -2,8 +2,8 @@ package com.cesar.trabalho.passagem;
 
 import com.cesar.trabalho.assento.Assento;
 import com.cesar.trabalho.cliente.Cliente;
-import com.cesar.trabalho.models.enums.ClassType;
-import com.cesar.trabalho.models.enums.TicketStatus;
+import com.cesar.trabalho.enums.ClassType;
+import com.cesar.trabalho.enums.TicketStatus;
 import com.cesar.trabalho.voo.Voo;
 import org.jmolecules.ddd.annotation.AggregateRoot;
 import org.jmolecules.ddd.annotation.Identity;
@@ -42,6 +42,7 @@ public class Passagem {
         this.status = status;
         this.voo = voo;
         this.cliente = cliente;
+        this.id = new PassagemId();
     }
 
     public Voo getVoo() {
@@ -82,5 +83,29 @@ public class Passagem {
 
     public void setPreco(Float preco) {
         this.preco = preco;
+    }
+
+    public LocalDateTime getDataCompra() {
+        return dataCompra;
+    }
+
+    public void setDataCompra(LocalDateTime dataCompra) {
+        this.dataCompra = dataCompra;
+    }
+
+    public ClassType getClasse() {
+        return classe;
+    }
+
+    public void setClasse(ClassType classe) {
+        this.classe = classe;
+    }
+
+    public TicketStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TicketStatus status) {
+        this.status = status;
     }
 }

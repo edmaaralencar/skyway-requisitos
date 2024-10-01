@@ -1,11 +1,10 @@
 package com.cesar.trabalho.models;
 
-import com.cesar.trabalho.models.enums.FidelityLevel;
+import com.cesar.trabalho.enums.FidelityLevel;
 import com.cesar.trabalho.models.shared.Id;
 import org.jmolecules.ddd.annotation.AggregateRoot;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @AggregateRoot
 public class Customer {

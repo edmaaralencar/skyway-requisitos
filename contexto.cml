@@ -1,17 +1,17 @@
 Domain SistemaVendasPassagensAereas {
 	Subdomain VendaPassagens
-	Subdomain GestaoClientesFidelidade
+	Subdomain GestaoClientes
 	Subdomain CheckInBagagem
 	Subdomain OperacoesVoo
 }
 
 ContextMap {
 	contains VendaPassagens
-	contains GestaoClientesFidelidade
+	contains GestaoClientes
 	contains CheckInBagagem
 	contains OperacoesVoo
 
-	VendaPassagens Shared-Kernel GestaoClientesFidelidade
+	VendaPassagens Shared-Kernel GestaoClientes
 	VendaPassagens Shared-Kernel CheckInBagagem
 	OperacoesVoo Shared-Kernel VendaPassagens
 }
@@ -36,10 +36,34 @@ BoundedContext VendaPassagens implements VendaPassagens{
 		}
 	}
 
+	Aggregate Cliente {
+		Entity Cliente {
+			aggregateRoot
+
+			-ClienteId id
+			String nome
+			String cpf
+			String client_email
+			-Fidelidade fidelidade
+		}
+
+		ValueObject ClienteId {
+			int id
+		}
+
+		ValueObject Fidelidade {
+			String nomePrograma
+			String nivel // Bronze, Prata, Ouro
+			Float pontosAcumulados
+		}
+	}
+
 	Aggregate Voo {
 		Entity Voo {
 			aggregateRoot
 
+
+			String numero
 			-VooId id
 			String origem
 			String destino
@@ -90,34 +114,14 @@ BoundedContext VendaPassagens implements VendaPassagens{
 	}
 }
 
-BoundedContext GestaoClientesFidelidade implements GestaoClientesFidelidade {
-	Aggregate Cliente {
-		Entity Cliente {
-			aggregateRoot
-
-			-ClienteId id
-			String nome
-			String cpf
-			String client_email
-			-Fidelidade fidelidade
-		}
-
-		ValueObject ClienteId {
-			int id
-		}
-
-		ValueObject Fidelidade {
-			String nomePrograma
-			String nivel // Bronze, Prata, Ouro
-			Float pontosAcumulados
-		}
-	}
+BoundedContext GestaoClientes implements GestaoClientes {
 
 	Aggregate Reembolso {
 		Entity Reembolso {
 			aggregateRoot
 
 			-ReembolsoId id
+			-ClienteId cliente
 			-PassagemId passagem
 			Float valor
 			String metodo // Crédito na conta
@@ -142,7 +146,11 @@ BoundedContext GestaoClientesFidelidade implements GestaoClientesFidelidade {
 			int id
 		}
 	}
+
+
 }
+
+
 
 BoundedContext CheckInBagagem implements CheckInBagagem{
 	Aggregate CheckIn {

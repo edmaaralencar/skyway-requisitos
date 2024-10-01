@@ -1,12 +1,12 @@
 package com.cesar.trabalho.steps;
 
 import com.cesar.trabalho.*;
+import com.cesar.trabalho.credito.Credito;
 import com.cesar.trabalho.assento.Assento;
 import com.cesar.trabalho.assento.AssentoRepositorio;
 import com.cesar.trabalho.cliente.Cliente;
 import com.cesar.trabalho.cliente.ClienteRepositorio;
-import com.cesar.trabalho.cliente.Credito;
-import com.cesar.trabalho.models.enums.ClassType;
+import com.cesar.trabalho.enums.ClassType;
 import com.cesar.trabalho.passagem.Passagem;
 import com.cesar.trabalho.passagem.PassagemRepositorio;
 import com.cesar.trabalho.passagem.PassagemServico;

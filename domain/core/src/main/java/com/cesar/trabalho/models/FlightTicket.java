@@ -1,13 +1,12 @@
 package com.cesar.trabalho.models;
 
-import com.cesar.trabalho.models.enums.ClassType;
-import com.cesar.trabalho.models.enums.TicketStatus;
+import com.cesar.trabalho.enums.ClassType;
+import com.cesar.trabalho.enums.TicketStatus;
 import com.cesar.trabalho.models.shared.Id;
 import org.jmolecules.ddd.annotation.AggregateRoot;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @AggregateRoot
 public class FlightTicket {

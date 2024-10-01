@@ -1,4 +1,4 @@
-package com.cesar.trabalho.models.enums;
+package com.cesar.trabalho.enums;
 
 public enum BaggageType {
     DESPACHADA, MAO;
