@@ -10,7 +10,7 @@ ContextMap {
 	contains GestaoClientes
 	contains CheckInBagagem
 	contains OperacoesVoo
-
+	
 	VendaPassagens Shared-Kernel GestaoClientes
 	VendaPassagens Shared-Kernel CheckInBagagem
 	OperacoesVoo Shared-Kernel VendaPassagens
@@ -24,7 +24,7 @@ BoundedContext VendaPassagens implements VendaPassagens{
 			-PassagemId id
 			-VooId voo
 			-ClienteId cliente
-			-AssentoId assento
+			-AssentoId assento 
 			Date dataCompra
 			Float preco
 			String classe // Executiva, Econômica
@@ -35,28 +35,8 @@ BoundedContext VendaPassagens implements VendaPassagens{
 			int id
 		}
 	}
+	
 
-	Aggregate Cliente {
-		Entity Cliente {
-			aggregateRoot
-
-			-ClienteId id
-			String nome
-			String cpf
-			String client_email
-			-Fidelidade fidelidade
-		}
-
-		ValueObject ClienteId {
-			int id
-		}
-
-		ValueObject Fidelidade {
-			String nomePrograma
-			String nivel // Bronze, Prata, Ouro
-			Float pontosAcumulados
-		}
-	}
 
 	Aggregate Voo {
 		Entity Voo {
@@ -67,7 +47,7 @@ BoundedContext VendaPassagens implements VendaPassagens{
 			-VooId id
 			String origem
 			String destino
-			-List<Escala> escalas
+			-List<Escala> escalas 
 			Date horarioPartida
 			Date horarioChegada
 			String status // Confirmado, Atrasado, Cancelado
@@ -97,6 +77,23 @@ BoundedContext VendaPassagens implements VendaPassagens{
 			String numero
 		}
 	}
+	
+	Aggregate Reembolso {
+		Entity Reembolso {
+			aggregateRoot
+
+			-ReembolsoId id
+			-ClienteId cliente
+			-PassagemId passagem
+			Float valor
+			String metodo // Crédito na conta
+			Date dataRecebimento
+		}
+
+		ValueObject ReembolsoId {
+			int id
+		}
+	}
 
 	Aggregate CupomDesconto {
 		Entity Cupom {
@@ -115,21 +112,27 @@ BoundedContext VendaPassagens implements VendaPassagens{
 }
 
 BoundedContext GestaoClientes implements GestaoClientes {
-
-	Aggregate Reembolso {
-		Entity Reembolso {
+	
+	
+	Aggregate Cliente {
+		Entity Cliente {
 			aggregateRoot
 
-			-ReembolsoId id
-			-ClienteId cliente
-			-PassagemId passagem
-			Float valor
-			String metodo // Crédito na conta
-			Date dataRecebimento
+			-ClienteId id
+			String nome
+			String cpf
+			String client_email
+			-Fidelidade fidelidade
 		}
 
-		ValueObject ReembolsoId {
+		ValueObject ClienteId {
 			int id
+		}
+
+		ValueObject Fidelidade {
+			String nomePrograma
+			String nivel // Bronze, Prata, Ouro
+			Float pontosAcumulados
 		}
 	}
 
@@ -146,7 +149,7 @@ BoundedContext GestaoClientes implements GestaoClientes {
 			int id
 		}
 	}
-
+	
 
 }
 
