@@ -3,7 +3,6 @@ package com.cesar.trabalho;
 import com.cesar.trabalho.cliente.Cliente;
 import com.cesar.trabalho.cliente.ClienteId;
 import com.cesar.trabalho.cliente.ClienteRepositorio;
-import com.cesar.trabalho.models.Customer;
 
 import java.util.HashMap;
 import java.util.Map;

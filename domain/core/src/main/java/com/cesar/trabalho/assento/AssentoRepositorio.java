@@ -1,6 +1,5 @@
 package com.cesar.trabalho.assento;
 
-import com.cesar.trabalho.models.Seat;
 import com.cesar.trabalho.voo.VooId;
 
 import java.util.List;

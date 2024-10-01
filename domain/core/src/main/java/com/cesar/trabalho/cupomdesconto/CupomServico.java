@@ -1,7 +1,5 @@
 package com.cesar.trabalho.cupomdesconto;
 
-import com.cesar.trabalho.models.DiscountCoupon;
-
 import java.time.LocalDate;
 import java.util.Optional;
 
