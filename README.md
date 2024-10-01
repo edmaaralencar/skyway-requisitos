@@ -1,6 +1,7 @@
 # Domínios
 
 Estão dentro da pasta domains:
+Para localizar as propriedades, só ir dentro do arquivo com o nome da Entidade, que lá possui todas as propriedades bem como o tipo de dela (ValueObject ou AggregateRoot).
 - core
   - Assento
   - Cupom
