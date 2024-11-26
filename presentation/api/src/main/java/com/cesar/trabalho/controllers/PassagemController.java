@@ -6,6 +6,8 @@ import com.cesar.trabalho.dtos.ReservarVooRequestDTO;
 import com.cesar.trabalho.dtos.TrocarVooRequestDTO;
 import com.cesar.trabalho.jpa.core.assento.AssentoImpl;
 import com.cesar.trabalho.jpa.core.passagem.PassagemImpl;
+import com.cesar.trabalho.jpa.core.passagem.PassagemJpa;
+import com.cesar.trabalho.jpa.core.passagem.PassagemJpaRepositorio;
 import com.cesar.trabalho.jpa.core.voo.VooImpl;
 import com.cesar.trabalho.jpa.customers.cliente.ClienteImpl;
 import com.cesar.trabalho.jpa.customers.cliente.ClienteJpa;
@@ -16,12 +18,10 @@ import com.cesar.trabalho.passagem.PassagemServico;
 import com.cesar.trabalho.voo.Voo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/passagens")
@@ -34,6 +34,8 @@ public class PassagemController {
     private AssentoImpl assentoImpl;
     @Autowired
     private PassagemImpl passagemImpl;
+    @Autowired
+    private PassagemJpaRepositorio passagemJpaRepositorio;
 
     @PostMapping("/reservar")
     public ResponseEntity<Object> reservarVoo(@RequestBody ReservarVooRequestDTO dto) {
@@ -44,7 +46,7 @@ public class PassagemController {
 
             PassagemServico passagemServico = new PassagemServico(passagemImpl, assentoImpl, clienteImpl, vooImpl);
 
-            Passagem passagem = passagemServico.reservarVoo(voo, assento, cliente, dto.getPreco(), dto.getClasse());
+            Passagem passagem = passagemServico.reservarVoo(voo, assento, cliente, dto.getClasse(), dto.getDesconto());
 
             return ResponseEntity.status(201).body(passagem);
         } catch (Exception e) {
@@ -68,5 +70,12 @@ public class PassagemController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> visualizarPassagensDeUsuario(@PathVariable("id") String id) {
+        List<PassagemJpa> passagens = passagemJpaRepositorio.findManyByClienteId(Long.valueOf(id));
+
+        return ResponseEntity.status(200).body(passagens);
     }
 }

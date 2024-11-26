@@ -19,7 +19,7 @@ public class ReembolsoImpl implements ReembolsoRepositorio {
     private ReembolsoJpaRepositorio repositorio;
 
     @Autowired
-    private JpaMapeador mapeador;
+    private JpaMapeador mapeador = JpaMapeador.getInstance();
 
     @Override
     public Reembolso salvar(Reembolso reembolso) {

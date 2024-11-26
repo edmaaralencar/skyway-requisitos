@@ -46,7 +46,7 @@ public class ReembolsoServico {
         assento.setEstaDisponivel(true);
 
         this.reembolsoRepositorio.salvar(reembolso);
-/*        this.passagemRepositorio.salvar(passagem, "atualizar");
+        this.passagemRepositorio.salvar(passagem, "atualizar");
         this.assentoRepositorio.salvar(assento);
 
         if (valorReembolso == 0) {
@@ -55,7 +55,7 @@ public class ReembolsoServico {
 
         cliente.getCredito().setSaldo(cliente.getCredito().getSaldo() + valorReembolso);
 
-        this.clienteRepositorio.salvar(cliente);*/
+        this.clienteRepositorio.salvar(cliente);
 
         return reembolso;
     }

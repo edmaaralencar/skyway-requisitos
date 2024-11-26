@@ -19,10 +19,11 @@ public class Voo {
     private LocalDateTime horarioPartida;
     private LocalDateTime horarioChegada;
     private StatusVoo status;
+    private Float preco;
 
     public Voo() {}
 
-    public Voo(String numero, String origem, String destino, List<Escala> escalas, LocalDateTime horarioPartida, LocalDateTime horarioChegada, StatusVoo status) {
+    public Voo(String numero, String origem, String destino, List<Escala> escalas, LocalDateTime horarioPartida, LocalDateTime horarioChegada, StatusVoo status, Float preco) {
         this.numero = numero;
         this.origem = origem;
         this.destino = destino;
@@ -30,6 +31,7 @@ public class Voo {
         this.horarioPartida = horarioPartida;
         this.horarioChegada = horarioChegada;
         this.status = status;
+        this.preco = preco;
         this.id = new VooId();
     }
 
@@ -103,6 +105,14 @@ public class Voo {
 
     public void setAssentos(List<Assento> assentos) {
         this.assentos = assentos;
+    }
+
+    public Float getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Float preco) {
+        this.preco = preco;
     }
 
     @Override

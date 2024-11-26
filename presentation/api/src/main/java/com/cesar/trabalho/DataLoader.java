@@ -56,7 +56,8 @@ public class DataLoader {
                 LocalDateTime.of(2024, 11, 1, 22, 0),
                 LocalDateTime.of(2024, 11, 2, 14, 0),
                 StatusVoo.CONFIRMADO,
-                Collections.emptyList()
+                Collections.emptyList(),
+                Float.valueOf("500.00")
         );
 
         EscalaJpa escalaJpa = new EscalaJpa();
@@ -95,7 +96,8 @@ public class DataLoader {
                 LocalDateTime.of(2024, 11, 1, 22, 0),
                 LocalDateTime.of(2024, 11, 2, 14, 0),
                 StatusVoo.CONFIRMADO,
-                Collections.emptyList()
+                Collections.emptyList(),
+                Float.valueOf("600.00")
         );
 
 

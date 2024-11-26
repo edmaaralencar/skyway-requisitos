@@ -16,7 +16,7 @@ public class AssentoImpl implements AssentoRepositorio {
     private AssentoJpaRepositorio repositorio;
 
     @Autowired
-    private JpaMapeador mapeador;
+    private JpaMapeador mapeador = JpaMapeador.getInstance();
 
     @Override
     public Assento salvar(Assento assento) {

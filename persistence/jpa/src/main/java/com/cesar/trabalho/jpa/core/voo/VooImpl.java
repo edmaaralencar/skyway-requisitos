@@ -13,7 +13,7 @@ public class VooImpl implements VooRepositorio {
     @Autowired
     public VooJpaRepositorio repositorio;
     @Autowired
-    public JpaMapeador mapeador;
+    private JpaMapeador mapeador = JpaMapeador.getInstance();
     @Override
     public Voo salvar(Voo voo) {
         VooJpa vooJpa = mapeador.map(voo, VooJpa.class);

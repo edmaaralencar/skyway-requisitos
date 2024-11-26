@@ -12,6 +12,8 @@ import com.cesar.trabalho.voo.VooRepositorio;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 public class PassagemServico {
     private final PassagemRepositorio passagemRepositorio;
@@ -26,24 +28,30 @@ public class PassagemServico {
         this.vooRepositorio = vooRepositorio;
     }
 
-    public Passagem reservarVoo(Voo voo, Assento assento, Cliente cliente, Float preco, ClassType classe) throws Exception {
+    public Passagem reservarVoo(Voo voo, Assento assento, Cliente cliente, ClassType classe, Optional<Long> desconto) throws Exception {
         if (!assento.isEstaDisponivel()) {
             throw new Exception("Assento ocupado");
         }
 
-        if (preco > cliente.getCredito().getSaldo()) {
-            throw new Exception("Saldo insuficiente");
+        if (desconto.isPresent()) {
+            if (voo.getPreco() - desconto.get() > cliente.getCredito().getSaldo()) {
+                throw new Exception("Saldo insuficiente");
+            }
+        } else {
+            if (voo.getPreco() > cliente.getCredito().getSaldo()) {
+                throw new Exception("Saldo insuficiente");
+            }
         }
 
         assento.setEstaDisponivel(false);
 
         Credito credito = new Credito(cliente.getCredito().getSaldo());
-        credito.setSaldo(credito.getSaldo() - preco);
+        credito.setSaldo(desconto.isPresent() ? credito.getSaldo() - voo.getPreco() + desconto.get() : credito.getSaldo() - voo.getPreco());
         cliente.setCredito(credito);
 
         Passagem passagem = new Passagem(
                 LocalDateTime.now(),
-                preco,
+                desconto.isPresent() ? voo.getPreco() - desconto.get() : voo.getPreco(),
                 classe,
                 TicketStatus.ATIVA,
                 voo,

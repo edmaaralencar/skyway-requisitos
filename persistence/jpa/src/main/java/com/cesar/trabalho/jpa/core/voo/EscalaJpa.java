@@ -1,5 +1,6 @@
 package com.cesar.trabalho.jpa.core.voo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ public class EscalaJpa {
     private LocalDateTime horarioChegada;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "voo_id")
     private VooJpa voo;
 

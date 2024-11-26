@@ -13,7 +13,7 @@ public class CupomImpl implements CupomRepositorio {
     @Autowired
     private CupomJpaRepositorio repositorio;
     @Autowired
-    private JpaMapeador mapeador;
+    private JpaMapeador mapeador = JpaMapeador.getInstance();
     @Override
     public Cupom salvar(Cupom cupom) {
         CupomJpa cupomJpa = mapeador.map(cupom, CupomJpa.class);

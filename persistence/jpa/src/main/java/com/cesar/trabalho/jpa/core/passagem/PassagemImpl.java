@@ -16,7 +16,7 @@ public class PassagemImpl implements PassagemRepositorio {
     private PassagemJpaRepositorio repositorio;
 
     @Autowired
-    private JpaMapeador mapeador;
+    private JpaMapeador mapeador = JpaMapeador.getInstance();
 
     @Override
     public Passagem salvar(Passagem passagem, String type) {

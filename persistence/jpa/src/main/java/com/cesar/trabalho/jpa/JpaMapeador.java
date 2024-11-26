@@ -24,13 +24,25 @@ import com.cesar.trabalho.voo.VooId;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public class JpaMapeador extends ModelMapper {
-    JpaMapeador() {
+
+    @Autowired
+    private static JpaMapeador instancia;
+    
+    public static JpaMapeador getInstance() {
+        if (instancia == null) {
+            instancia = new JpaMapeador();
+        }
+        return instancia;
+    }
+
+    private JpaMapeador() {
         var configuracao = getConfiguration();
         configuracao.setFieldMatchingEnabled(true);
         configuracao.setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
@@ -226,6 +238,7 @@ public class JpaMapeador extends ModelMapper {
                 vooJpa.setOrigem(source.getOrigem());
                 vooJpa.setHorarioPartida(source.getHorarioPartida());
                 vooJpa.setAssentos(assentos);
+                vooJpa.setPreco(source.getPreco());
 
                 return vooJpa;
             }
@@ -254,7 +267,8 @@ public class JpaMapeador extends ModelMapper {
                         escalas,
                         source.getHorarioPartida(),
                         source.getHorarioChegada(),
-                        source.getStatus()
+                        source.getStatus(),
+                        source.getPreco()
                 );
 
                 voo.setAssentos(assentos);

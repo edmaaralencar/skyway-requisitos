@@ -20,6 +20,7 @@ import io.cucumber.java.en.Then;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -30,8 +31,6 @@ public class ReservarVooDefinition {
     private final VooRepositorio vooRepositorio = new MemoriaVooRepositorio();
 
     private final PassagemServico passagemServico = new PassagemServico(passagemRepositorio, assentoRepositorio, clienteRepositorio, vooRepositorio);
-
-    private Float precoVoo = Float.valueOf(400);
     private Exception reservationException;
     private Assento assento;
     private Passagem passagem;
@@ -42,7 +41,8 @@ public class ReservarVooDefinition {
             Collections.emptyList(),
             LocalDateTime.of(2024, 11, 1, 22, 0),
             LocalDateTime.of(2024, 11, 2, 14, 0),
-            StatusVoo.CONFIRMADO
+            StatusVoo.CONFIRMADO,
+            Float.valueOf("400")
     );
 
     private Cliente cliente = new Cliente(
@@ -68,7 +68,7 @@ public class ReservarVooDefinition {
         cliente.setCredito(credito);
 
         try {
-            passagem = this.passagemServico.reservarVoo(voo, assento, cliente, precoVoo, ClassType.ECONOMICA);
+            passagem = this.passagemServico.reservarVoo(voo, assento, cliente, ClassType.ECONOMICA, Optional.empty());
         } catch (Exception e) {
             reservationException = e;
         }

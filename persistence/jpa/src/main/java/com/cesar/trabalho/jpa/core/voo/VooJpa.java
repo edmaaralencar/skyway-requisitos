@@ -26,10 +26,11 @@ public class VooJpa {
     private LocalDateTime horarioPartida;
     private LocalDateTime horarioChegada;
     private StatusVoo status;
+    private Float preco;
 
     public VooJpa() {}
 
-    public VooJpa(String numero, String origem, String destino, List<EscalaJpa> escalas, LocalDateTime horarioPartida, LocalDateTime horarioChegada, StatusVoo status, List<AssentoJpa> assentos) {
+    public VooJpa(String numero, String origem, String destino, List<EscalaJpa> escalas, LocalDateTime horarioPartida, LocalDateTime horarioChegada, StatusVoo status, List<AssentoJpa> assentos, Float preco) {
         this.numero = numero;
         this.origem = origem;
         this.destino = destino;
@@ -38,6 +39,7 @@ public class VooJpa {
         this.horarioChegada = horarioChegada;
         this.status = status;
         this.assentos = assentos;
+        this.preco = preco;
     }
 
     public long getId() {
@@ -110,6 +112,14 @@ public class VooJpa {
 
     public void setAssentos(List<AssentoJpa> assentos) {
         this.assentos = assentos;
+    }
+
+    public Float getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Float preco) {
+        this.preco = preco;
     }
 
     @Override
