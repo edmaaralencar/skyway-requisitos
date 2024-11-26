@@ -1,5 +1,6 @@
 package com.cesar.trabalho.voo;
 
+import com.cesar.trabalho.assento.Assento;
 import org.jmolecules.ddd.annotation.AggregateRoot;
 import org.jmolecules.ddd.annotation.Identity;
 
@@ -14,9 +15,12 @@ public class Voo {
     private String origem;
     private String destino;
     private List<Escala> escalas;
+    private List<Assento> assentos;
     private LocalDateTime horarioPartida;
     private LocalDateTime horarioChegada;
     private StatusVoo status;
+
+    public Voo() {}
 
     public Voo(String numero, String origem, String destino, List<Escala> escalas, LocalDateTime horarioPartida, LocalDateTime horarioChegada, StatusVoo status) {
         this.numero = numero;
@@ -83,5 +87,36 @@ public class Voo {
 
     public void setStatus(StatusVoo status) {
         this.status = status;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public List<Assento> getAssentos() {
+        return assentos;
+    }
+
+    public void setAssentos(List<Assento> assentos) {
+        this.assentos = assentos;
+    }
+
+    @Override
+    public String toString() {
+        return "Voo{" +
+                "id=" + id +
+                ", numero='" + numero + '\'' +
+                ", origem='" + origem + '\'' +
+                ", destino='" + destino + '\'' +
+                ", escalas=" + escalas +
+                ", assentos=" + assentos +
+                ", horarioPartida=" + horarioPartida +
+                ", horarioChegada=" + horarioChegada +
+                ", status=" + status +
+                '}';
     }
 }

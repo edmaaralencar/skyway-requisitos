@@ -8,6 +8,7 @@ import com.cesar.trabalho.cliente.ClienteRepositorio;
 import com.cesar.trabalho.enums.ClassType;
 import com.cesar.trabalho.enums.TicketStatus;
 import com.cesar.trabalho.voo.Voo;
+import com.cesar.trabalho.voo.VooRepositorio;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -16,12 +17,13 @@ public class PassagemServico {
     private final PassagemRepositorio passagemRepositorio;
     private final AssentoRepositorio assentoRepositorio;
     private final ClienteRepositorio clienteRepositorio;
+    private final VooRepositorio vooRepositorio;
 
-
-    public PassagemServico(PassagemRepositorio passagemRepositorio, AssentoRepositorio assentoRepositorio, ClienteRepositorio clienteRepositorio) {
+    public PassagemServico(PassagemRepositorio passagemRepositorio, AssentoRepositorio assentoRepositorio, ClienteRepositorio clienteRepositorio, VooRepositorio vooRepositorio) {
         this.passagemRepositorio = passagemRepositorio;
         this.assentoRepositorio = assentoRepositorio;
         this.clienteRepositorio = clienteRepositorio;
+        this.vooRepositorio = vooRepositorio;
     }
 
     public Passagem reservarVoo(Voo voo, Assento assento, Cliente cliente, Float preco, ClassType classe) throws Exception {
@@ -33,6 +35,12 @@ public class PassagemServico {
             throw new Exception("Saldo insuficiente");
         }
 
+        assento.setEstaDisponivel(false);
+
+        Credito credito = new Credito(cliente.getCredito().getSaldo());
+        credito.setSaldo(credito.getSaldo() - preco);
+        cliente.setCredito(credito);
+
         Passagem passagem = new Passagem(
                 LocalDateTime.now(),
                 preco,
@@ -43,24 +51,18 @@ public class PassagemServico {
                 assento
         );
 
-        assento.setEstaDisponivel(false);
-
-        Credito credito = new Credito(cliente.getCredito().getSaldo());
-        credito.setSaldo(credito.getSaldo() - preco);
-        cliente.setCredito(credito);
-
-        passagemRepositorio.salvar(passagem);
+        passagemRepositorio.salvar(passagem, "criar");
         assentoRepositorio.salvar(assento);
-        clienteRepositorio.salvar(cliente);
+        clienteRepositorio.atualizar(cliente);
 
-        return passagem;
+        return new Passagem();
     }
 
     public Passagem trocarVoo(Passagem passagem, Voo novoVoo, Assento assento, Cliente cliente, Float preco, ClassType classe, LocalDateTime changeRequestTime) throws Exception {
-        if (!assento.getVoo().equals(novoVoo)) {
+        /*if (!assento.getVoo().equals(novoVoo)) {
             throw new Exception("Esse assento não é desse voo");
         }
-
+*/
         if (!assento.isEstaDisponivel()) {
             throw new Exception("Assento indisponível");
         }
@@ -90,7 +92,7 @@ public class PassagemServico {
         }
 
         this.clienteRepositorio.salvar(cliente);
-        this.passagemRepositorio.salvar(passagem);
+        this.passagemRepositorio.salvar(passagem, "atualizar");
         this.assentoRepositorio.salvar(assento);
 
         return passagem;

@@ -12,6 +12,7 @@
         <module>domain</module>
         <module>bdd</module>
         <module>persistence</module>
+        <module>presentation</module>
     </modules>
 
     <properties>

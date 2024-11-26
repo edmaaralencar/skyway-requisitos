@@ -12,6 +12,7 @@ import com.cesar.trabalho.passagem.PassagemRepositorio;
 import com.cesar.trabalho.passagem.PassagemServico;
 import com.cesar.trabalho.voo.StatusVoo;
 import com.cesar.trabalho.voo.Voo;
+import com.cesar.trabalho.voo.VooRepositorio;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -26,8 +27,9 @@ public class ReservarVooDefinition {
     private final PassagemRepositorio passagemRepositorio = new MemoriaPassagemRepositorio();
     private final AssentoRepositorio assentoRepositorio = new MemoriaAssentoRepositorio();
     private final ClienteRepositorio clienteRepositorio = new MemoriaClienteRepositorio();
+    private final VooRepositorio vooRepositorio = new MemoriaVooRepositorio();
 
-    private final PassagemServico passagemServico = new PassagemServico(passagemRepositorio, assentoRepositorio, clienteRepositorio);
+    private final PassagemServico passagemServico = new PassagemServico(passagemRepositorio, assentoRepositorio, clienteRepositorio, vooRepositorio);
 
     private Float precoVoo = Float.valueOf(400);
     private Exception reservationException;

@@ -28,6 +28,20 @@ public class Cliente {
         this.id = new ClienteId();
     }
 
+    public Cliente(ClienteId clienteId, String nome, String cpf, String email, Float saldo) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+
+        Fidelidade fidelidade = new Fidelidade("Programa Teste", FidelidadeNivel.BRONZE, Float.valueOf(0));
+        this.fidelidade = fidelidade;
+
+        Credito credito = new Credito(saldo);
+        this.credito = credito;
+
+        this.id = clienteId;
+    }
+
     public ClienteId getId() {
         return id;
     }
@@ -36,11 +50,39 @@ public class Cliente {
         this.id = id;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Fidelidade getFidelidade() {
+        return fidelidade;
+    }
+
     public Credito getCredito() {
         return credito;
     }
 
     public void setCredito(Credito credito) {
         this.credito = credito;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", email='" + email + '\'' +
+                ", fidelidade=" + fidelidade +
+                ", credito=" + credito +
+                '}';
     }
 }

@@ -15,4 +15,10 @@ public class MemoriaClienteRepositorio implements ClienteRepositorio {
         this.customers.put(cliente.getId(), cliente);
         return cliente;
     }
+
+    @Override
+    public Cliente atualizar(Cliente cliente) {
+        this.customers.put(cliente.getId(), cliente);
+        return cliente;
+    }
 }

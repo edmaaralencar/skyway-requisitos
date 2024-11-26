@@ -27,6 +27,8 @@ public class Reembolso {
         this.id = new ReembolsoId();
     }
 
+    public Reembolso() {}
+
     public ReembolsoId getId() {
         return id;
     }

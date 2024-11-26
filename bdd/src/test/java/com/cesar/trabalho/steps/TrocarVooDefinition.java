@@ -12,6 +12,7 @@ import com.cesar.trabalho.passagem.PassagemRepositorio;
 import com.cesar.trabalho.passagem.PassagemServico;
 import com.cesar.trabalho.voo.StatusVoo;
 import com.cesar.trabalho.voo.Voo;
+import com.cesar.trabalho.voo.VooRepositorio;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -27,7 +28,8 @@ public class TrocarVooDefinition {
     private final PassagemRepositorio passagemRepositorio = new MemoriaPassagemRepositorio();
     private final AssentoRepositorio assentoRepositorio = new MemoriaAssentoRepositorio();
     private final ClienteRepositorio clienteRepositorio = new MemoriaClienteRepositorio();
-    private final PassagemServico passagemServico = new PassagemServico(passagemRepositorio, assentoRepositorio, clienteRepositorio);
+    private final VooRepositorio vooRepositorio = new MemoriaVooRepositorio();
+    private final PassagemServico passagemServico = new PassagemServico(passagemRepositorio, assentoRepositorio, clienteRepositorio, vooRepositorio);
 
     private Voo novoVoo;
     private Passagem passagem;

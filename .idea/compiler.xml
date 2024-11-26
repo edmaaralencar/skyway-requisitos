@@ -9,8 +9,15 @@
         <module name="core" />
         <module name="bdd" />
         <module name="memory" />
+        <module name="jpa" />
         <module name="customers" />
+        <module name="api" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="application" target="17" />
+      <module name="backend" target="17" />
+      <module name="demo" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -20,6 +20,9 @@ public class Assento {
         this.id = new AssentoId();
     }
 
+    public Assento() {
+    }
+
     public AssentoId getId() {
         return id;
     }
@@ -52,4 +55,13 @@ public class Assento {
         this.voo = voo;
     }
 
+    @Override
+    public String toString() {
+        return "Assento{" +
+                "id=" + id +
+                ", numero='" + numero + '\'' +
+                ", estaDisponivel=" + estaDisponivel +
+                ", voo=" + voo +
+                '}';
+    }
 }

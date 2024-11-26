@@ -24,6 +24,8 @@ public class Passagem {
     private Cliente cliente;
     private Assento assento;
 
+    public Passagem() {}
+
     public Passagem(LocalDateTime dataCompra, Float preco, ClassType classe, TicketStatus status, Voo voo, Cliente cliente, Assento assento) {
         this.dataCompra = dataCompra;
         this.preco = preco;
@@ -107,5 +109,19 @@ public class Passagem {
 
     public void setStatus(TicketStatus status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Passagem{" +
+                "id=" + id +
+                ", dataCompra=" + dataCompra +
+                ", preco=" + preco +
+                ", classe=" + classe +
+                ", status=" + status +
+                ", voo=" + voo +
+                ", cliente=" + cliente +
+                ", assento=" + assento +
+                '}';
     }
 }

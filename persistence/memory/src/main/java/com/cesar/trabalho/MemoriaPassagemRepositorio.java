@@ -15,7 +15,7 @@ public class MemoriaPassagemRepositorio implements PassagemRepositorio {
     private final Map<PassagemId, Passagem> passagens = new HashMap<>();
 
     @Override
-    public Passagem salvar(Passagem passagem) {
+    public Passagem salvar(Passagem passagem, String type) {
         this.passagens.put(passagem.getId(), passagem);
         return passagem;
     }

@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>memory</module>
+        <module>jpa</module>
     </modules>
 
     <properties>

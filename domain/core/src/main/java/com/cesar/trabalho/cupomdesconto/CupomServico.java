@@ -1,8 +1,11 @@
 package com.cesar.trabalho.cupomdesconto;
 
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.Optional;
 
+@Service
 public class CupomServico {
     private final CupomRepositorio cupomRepositorio;
 

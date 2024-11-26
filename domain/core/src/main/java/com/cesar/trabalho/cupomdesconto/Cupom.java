@@ -23,6 +23,9 @@ public class Cupom {
         this.id = new CupomId();
     }
 
+    public Cupom() {
+    }
+
     public CupomId getId() {
         return id;
     }

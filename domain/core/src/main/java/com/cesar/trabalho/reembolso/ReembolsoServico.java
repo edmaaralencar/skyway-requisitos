@@ -9,10 +9,12 @@ import com.cesar.trabalho.enums.ClassType;
 import com.cesar.trabalho.enums.TicketStatus;
 import com.cesar.trabalho.passagem.Passagem;
 import com.cesar.trabalho.passagem.PassagemRepositorio;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Service
 public class ReembolsoServico {
     private final PassagemRepositorio passagemRepositorio;
     private final AssentoRepositorio assentoRepositorio;
@@ -44,7 +46,7 @@ public class ReembolsoServico {
         assento.setEstaDisponivel(true);
 
         this.reembolsoRepositorio.salvar(reembolso);
-        this.passagemRepositorio.salvar(passagem);
+/*        this.passagemRepositorio.salvar(passagem, "atualizar");
         this.assentoRepositorio.salvar(assento);
 
         if (valorReembolso == 0) {
@@ -53,7 +55,7 @@ public class ReembolsoServico {
 
         cliente.getCredito().setSaldo(cliente.getCredito().getSaldo() + valorReembolso);
 
-        this.clienteRepositorio.salvar(cliente);
+        this.clienteRepositorio.salvar(cliente);*/
 
         return reembolso;
     }
