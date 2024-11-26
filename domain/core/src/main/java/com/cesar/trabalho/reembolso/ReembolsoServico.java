@@ -44,6 +44,7 @@ public class ReembolsoServico {
 
         Assento assento = passagem.getAssento();
         assento.setEstaDisponivel(true);
+        passagem.setAssento(null);
 
         this.reembolsoRepositorio.salvar(reembolso);
         this.passagemRepositorio.salvar(passagem, "atualizar");

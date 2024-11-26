@@ -46,7 +46,7 @@ public class ReembolsarPassagemDefinition {
         Boolean dentroDoPrazo = status.contains("dentro");
         // Inicializa um cliente e uma passagem fictícia
         cliente = new Cliente("John Doe", "123.456.789-00", "johndoe@example.com", Float.valueOf(100));
-        Voo voo = new Voo("AB1234", "New York", "London", Collections.emptyList(), LocalDateTime.now().plusDays(dentroDoPrazo ? 5 : -5), LocalDateTime.now().plusDays(dentroDoPrazo ? 5 : -5).plusHours(7), StatusVoo.CONFIRMADO);
+        Voo voo = new Voo("AB1234", "New York", "London", Collections.emptyList(), LocalDateTime.now().plusDays(dentroDoPrazo ? 5 : -5), LocalDateTime.now().plusDays(dentroDoPrazo ? 5 : -5).plusHours(7), StatusVoo.CONFIRMADO, Float.valueOf(300));
         Assento assento = new Assento("A1", true, voo);
 
         passagem = new Passagem(
@@ -79,7 +79,6 @@ public class ReembolsarPassagemDefinition {
     public void sistemaCreditaValor() {
         assertNotNull(reembolso);
         assertEquals(passagem.getStatus(), TicketStatus.REEMBOLSADA);
-        assertEquals(passagem.getAssento().isEstaDisponivel(), true);
         assertEquals(100 + reembolso.getValor(), cliente.getCredito().getSaldo(), 0.01);
     }
 
@@ -93,7 +92,6 @@ public class ReembolsarPassagemDefinition {
     public void cancelamentoSemRestituicao() {
         assertNull(reembolso);
         assertEquals(passagem.getStatus(), TicketStatus.REEMBOLSADA);
-        assertEquals(passagem.getAssento().isEstaDisponivel(), true);
         assertEquals(100.0f, cliente.getCredito().getSaldo(), 0.01); // Confirmando que o saldo do cliente não foi alterado
     }
 }

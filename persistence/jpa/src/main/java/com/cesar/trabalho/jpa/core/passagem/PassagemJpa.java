@@ -97,7 +97,7 @@ public class PassagemJpa {
     @JoinColumn(name = "id_cliente", nullable = false)
     private ClienteJpa cliente;
     @OneToOne
-    @JoinColumn(name = "id_assento", nullable = false)
+    @JoinColumn(name = "id_assento", nullable = true)
     private AssentoJpa assento;
 
     @Override

@@ -66,7 +66,7 @@ public class PassagemServico {
         return new Passagem();
     }
 
-    public Passagem trocarVoo(Passagem passagem, Voo novoVoo, Assento assento, Cliente cliente, Float preco, ClassType classe, LocalDateTime changeRequestTime) throws Exception {
+    public Passagem trocarVoo(Passagem passagem, Voo novoVoo, Assento assento, Cliente cliente, ClassType classe, LocalDateTime changeRequestTime) throws Exception {
         /*if (!assento.getVoo().equals(novoVoo)) {
             throw new Exception("Esse assento não é desse voo");
         }
@@ -75,7 +75,7 @@ public class PassagemServico {
             throw new Exception("Assento indisponível");
         }
 
-        Float priceDifference = preco - passagem.getPreco();
+        Float priceDifference = novoVoo.getPreco() - passagem.getPreco();
 
         Float classeTaxa = calculateClassFee(classe);
 

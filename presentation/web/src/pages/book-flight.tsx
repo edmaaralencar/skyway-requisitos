@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
 import { validateCode } from '@/api/validate-code'
@@ -28,6 +28,8 @@ import {
 } from '@/components/ui/select'
 import { bookFlight } from '@/api/book-flight'
 import { queryClient } from '@/lib/react-query'
+import { useAuth } from '@/api/hooks/use-auth'
+import { changeFlight } from '@/api/change-flight'
 
 export function BookFlight() {
   const params = useParams<{ id: string }>()
@@ -35,8 +37,12 @@ export function BookFlight() {
   const [selectedSeatId, setSelectedSeatId] = useState<number | null>(null)
   const [code, setCode] = useState('')
   const [classType, setClassType] = useState('')
+  const { client } = useAuth()
+  const [searchParams] = useSearchParams()
 
   const navigate = useNavigate()
+
+  const passagemId = searchParams.get('passagemId') ?? null
 
   const { data: flight } = useQuery({
     queryKey: ['flights', params.id],
@@ -61,6 +67,21 @@ export function BookFlight() {
     },
   })
 
+  const changeFlightMutation = useMutation({
+    mutationFn: changeFlight,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ['seats', params.id],
+      })
+      await queryClient.invalidateQueries({
+        queryKey: ['tickets'],
+      })
+
+      toast.success('Voo trocado com sucesso')
+      navigate('/passagens')
+    },
+  })
+
   const selectedSeat = seats?.find((item) => item.id === selectedSeatId) ?? null
 
   async function onValidateCode() {
@@ -79,15 +100,29 @@ export function BookFlight() {
       return toast.error('Ocorreu um erro.')
     }
 
+    if (!client) {
+      return toast.error('Necessário estar autenticado.')
+    }
+
     try {
-      await bookFlightMutation.mutateAsync({
-        assentoId: Number(selectedSeatId),
-        classe: classType,
-        clienteId: 1,
-        desconto: discount ?? null,
-        preco: 1,
-        vooId: Number(params.id),
-      })
+      if (passagemId) {
+        await changeFlightMutation.mutateAsync({
+          assentoId: Number(selectedSeatId),
+          classe: classType,
+          clienteId: client.id,
+          vooId: Number(params.id),
+          passagemId: Number(passagemId),
+        })
+      } else {
+        await bookFlightMutation.mutateAsync({
+          assentoId: Number(selectedSeatId),
+          classe: classType,
+          clienteId: client.id,
+          desconto: discount ?? null,
+          preco: 1,
+          vooId: Number(params.id),
+        })
+      }
     } catch (error) {
       toast.error('Ocorreu um erro.')
     }
@@ -129,34 +164,38 @@ export function BookFlight() {
               <div className="flex flex-col gap-2">
                 <span className="text-sm font-semibold">
                   Seu saldo:{' '}
-                  {new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'brl',
-                  }).format(100)}
+                  {client?.saldo
+                    ? new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'brl',
+                      }).format(client?.saldo)
+                    : 'Entre agora para reservar'}
                 </span>
                 <span className="text-sm font-semibold">
                   Assento: {selectedSeat ? selectedSeat.numero : 'Nenhum'}
                 </span>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <Label>Cupom</Label>
-                <div className="flex gap-2">
-                  <Input
-                    placeholder="Código..."
-                    value={code}
-                    onChange={(event) => setCode(event.target.value)}
-                    className="h-10"
-                  />
-                  <Button
-                    type="button"
-                    onClick={onValidateCode}
-                    variant="outline"
-                  >
-                    <Plus />
-                  </Button>
+              {!passagemId && (
+                <div className="flex flex-col gap-2">
+                  <Label>Cupom</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Código..."
+                      value={code}
+                      onChange={(event) => setCode(event.target.value)}
+                      className="h-10"
+                    />
+                    <Button
+                      type="button"
+                      onClick={onValidateCode}
+                      variant="outline"
+                    >
+                      <Plus />
+                    </Button>
+                  </div>
                 </div>
-              </div>
+              )}
               <div className="flex flex-col gap-2">
                 <Label>Classe</Label>
                 <div className="flex gap-2">
@@ -194,9 +233,9 @@ export function BookFlight() {
             <Button
               isLoading={bookFlightMutation.isPending}
               onClick={onSubmit}
-              disabled={!selectedSeatId}
+              disabled={!selectedSeatId || !client}
             >
-              Comprar
+              {passagemId ? 'Trocar voo' : 'Comprar'}
             </Button>
           </CardFooter>
         </Card>

@@ -4,6 +4,7 @@ import { Home } from './pages/home'
 import { BookFlight } from './pages/book-flight'
 import { Success } from './pages/sucess'
 import { Tickets } from './pages/tickets'
+import { Auth } from './pages/auth'
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
       {
         path: 'passagens',
         element: <Tickets />,
+      },
+      {
+        path: 'autenticacao',
+        element: <Auth />,
       },
     ],
   },

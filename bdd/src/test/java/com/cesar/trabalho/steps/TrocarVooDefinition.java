@@ -40,7 +40,7 @@ public class TrocarVooDefinition {
 
     @Given("que o passageiro deseja alterar o voo")
     public void passageiroDesejaAlterarVoo() {
-        Voo voo = new Voo("AB1234", "New York", "London", Collections.emptyList(), LocalDateTime.now().plusDays(5), LocalDateTime.now().plusDays(5).plusHours(7), StatusVoo.CONFIRMADO);
+        Voo voo = new Voo("AB1234", "New York", "London", Collections.emptyList(), LocalDateTime.now().plusDays(5), LocalDateTime.now().plusDays(5).plusHours(7), StatusVoo.CONFIRMADO, Float.valueOf("300"));
         Assento assento = new Assento("A1", true, voo);
 
         passagem = new Passagem(
@@ -56,7 +56,7 @@ public class TrocarVooDefinition {
 
     @When("o passageiro escolhe um voo")
     public void passageiroEscolheVoo() {
-        novoVoo = new Voo("BA5678", "London", "Tokyo", Collections.emptyList(), LocalDateTime.now().plusDays(2), LocalDateTime.now().plusDays(2).plusHours(14), StatusVoo.CONFIRMADO);
+        novoVoo = new Voo("BA5678", "London", "Tokyo", Collections.emptyList(), LocalDateTime.now().plusDays(2), LocalDateTime.now().plusDays(2).plusHours(14), StatusVoo.CONFIRMADO, Float.valueOf("500"));
         assentoSelecionado = new Assento("B2", true, novoVoo);
     }
 
@@ -76,7 +76,7 @@ public class TrocarVooDefinition {
     public void calculaTarifaETaxas() {
         try {
             precoDiferenca = Float.valueOf(500);  // Preço do novo voo
-            passagem = passagemServico.trocarVoo(passagem, novoVoo, assentoSelecionado, cliente, precoDiferenca, passagem.getClasse(), LocalDateTime.now());
+            passagem = passagemServico.trocarVoo(passagem, novoVoo, assentoSelecionado, cliente, passagem.getClasse(), LocalDateTime.now());
         } catch (Exception e) {
             exception = e;
         }

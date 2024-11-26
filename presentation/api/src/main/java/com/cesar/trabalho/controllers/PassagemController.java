@@ -64,7 +64,7 @@ public class PassagemController {
 
             PassagemServico passagemServico = new PassagemServico(passagemImpl, assentoImpl, clienteImpl, vooImpl);
 
-            Passagem novaPassagem = passagemServico.trocarVoo(passagem, voo, assento, cliente, dto.getPreco(), dto.getClasse(), LocalDateTime.now());
+            Passagem novaPassagem = passagemServico.trocarVoo(passagem, voo, assento, cliente, dto.getClasse(), LocalDateTime.now());
 
             return ResponseEntity.status(201).body(passagem);
         } catch (Exception e) {

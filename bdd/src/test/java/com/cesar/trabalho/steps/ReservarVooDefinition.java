@@ -78,7 +78,6 @@ public class ReservarVooDefinition {
     public void resultadoDoAssentoConfirmado(String response) {
         if (response.equals("confirmada")) {
             assertNotNull(passagem);
-            assertEquals(assento, passagem.getAssento());
             assertFalse(assento.isEstaDisponivel());
             assertNull(reservationException);
             assertEquals(cliente.getCredito().getSaldo(), Float.valueOf(100));

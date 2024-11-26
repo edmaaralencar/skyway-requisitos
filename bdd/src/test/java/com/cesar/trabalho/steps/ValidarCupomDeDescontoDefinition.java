@@ -38,7 +38,8 @@ public class ValidarCupomDeDescontoDefinition {
             Collections.emptyList(),
             LocalDateTime.of(2024, 11, 1, 22, 0),
             LocalDateTime.of(2024, 11, 2, 14, 0),
-            StatusVoo.CONFIRMADO
+            StatusVoo.CONFIRMADO,
+            Float.valueOf(1000)
     );
 
     private Cliente cliente = new Cliente(

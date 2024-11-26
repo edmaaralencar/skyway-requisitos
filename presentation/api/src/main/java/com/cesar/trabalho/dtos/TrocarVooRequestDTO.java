@@ -7,7 +7,6 @@ public class TrocarVooRequestDTO {
     private Long clienteId;
     private Long vooId;
     private Long assentoId;
-    private Float preco;
     private ClassType classe;
 
     public Long getClienteId() {
@@ -20,10 +19,6 @@ public class TrocarVooRequestDTO {
 
     public Long getAssentoId() {
         return assentoId;
-    }
-
-    public Float getPreco() {
-        return preco;
     }
 
     public ClassType getClasse() {
